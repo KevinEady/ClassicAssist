@@ -7,6 +7,7 @@ using Assistant;
 using ClassicAssist.Data.Hotkeys;
 using ClassicAssist.Misc;
 using ClassicAssist.Resources;
+using ClassicAssist.Stubs;
 using ClassicAssist.UI.ViewModels;
 using ClassicAssist.UI.Views;
 using ClassicAssist.UO;
@@ -150,7 +151,7 @@ namespace ClassicAssist.Data.Macros.Commands
             Parameters = new[] { nameof( ParameterType.String ), nameof( ParameterType.String ) } )]
         public static void MessageBox( string title, string body )
         {
-            System.Windows.MessageBox.Show( body, title, MessageBoxButton.OK, MessageBoxImage.Information );
+            Stubs.MessageBox.Show( body, title, MessageBoxButton.OK, MessageBoxImage.Information );
         }
 
         [CommandsDisplay( Category = nameof( Strings.Main ) )]

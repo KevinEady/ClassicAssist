@@ -10,6 +10,7 @@ using Avalonia.Collections;
 using ClassicAssist.Annotations;
 using ClassicAssist.Data.Hotkeys.Commands;
 using ClassicAssist.Data.Macros.Commands;
+using ClassicAssist.Stubs;
 using ClassicAssist.UI.Misc;
 
 namespace ClassicAssist.Data.Hotkeys

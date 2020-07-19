@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Threading;
 using ClassicAssist.Data.Hotkeys;
 using ClassicAssist.Resources;
+using ClassicAssist.Stubs;
 using IronPython.Runtime.Operations;
 using Microsoft.Scripting;
 using Microsoft.Scripting.Runtime;

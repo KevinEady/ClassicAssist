@@ -4,7 +4,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <OutputPath>..\Output\</OutputPath>
-    <UseWPF>true</UseWPF>
+    <UseWPF>false</UseWPF>
     <Configurations>Debug;Release;Develop</Configurations>
   </PropertyGroup>
   <ItemGroup>
@@ -143,4 +143,12 @@
     <DefineConstants>DEBUG</DefineConstants>
     <DefineConstants>DEVELOP</DefineConstants>
   </PropertyGroup>
+  <ItemGroup>
+    <AvaloniaNativeLibs Include="$(NuGetPackageRoot)avalonia.native\0.9.11\runtimes\osx\native\libAvaloniaNative.dylib;$(NuGetPackageRoot)skiasharp\1.68.0\runtimes\osx\native\libSkiaSharp.dylib"/>
+  </ItemGroup>
+  <Target Name="CustomPack" AfterTargets="CopyFilesToOutputDirectory">
+    <Message Text="Copying Avalonia Mac OS X shared libraries" Importance="Normal" />
+    <MakeDir Directories="$(OutDir)osx"/>
+    <Copy SourceFiles="@(AvaloniaNativeLibs)" DestinationFolder="$(OutDir)osx" />
+  </Target>
 </Project>

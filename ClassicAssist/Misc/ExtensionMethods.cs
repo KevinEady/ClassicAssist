@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+//using System.Windows.Media.Imaging;
 using Newtonsoft.Json.Linq;
 
 namespace ClassicAssist.Misc
@@ -57,25 +57,14 @@ namespace ClassicAssist.Misc
         [return: MarshalAs( UnmanagedType.Bool )]
         private static extern bool DeleteObject( [In] IntPtr hObject );
 
-        public static ImageSource ToImageSource( this Bitmap bmp )
+        public static dynamic ToImageSource( this Bitmap bmp )
         {
-            IntPtr handle = bmp.GetHbitmap();
-
-            try
-            {
-                return Imaging.CreateBitmapSourceFromHBitmap( handle, IntPtr.Zero, Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions() );
-            }
-            finally
-            {
-                DeleteObject( handle );
-            }
+            throw new NotImplementedException();
         }
 
-        public static BitmapSource ToBitmapSource( this Bitmap bmp )
+        public static dynamic ToBitmapSource( this Bitmap bmp )
         {
-            return Imaging.CreateBitmapSourceFromHBitmap( bmp.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
-                BitmapSizeOptions.FromWidthAndHeight( bmp.Width, bmp.Height ) );
+            throw new NotImplementedException();
         }
 
         public static void AddSorted<T>( this IList<T> list, T item, IComparer<T> comparer = null )

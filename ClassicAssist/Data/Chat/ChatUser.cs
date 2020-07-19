@@ -24,7 +24,7 @@ namespace ClassicAssist.Data.Chat
 {
     public class ChatUser : IComparable<ChatUser>
     {
-        public SolidColorBrush Colour { get; set; }
+        public dynamic Colour { get; set; }
         public string Username { get; set; }
 
         public int CompareTo( ChatUser other )

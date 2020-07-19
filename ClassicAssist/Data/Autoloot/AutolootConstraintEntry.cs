@@ -42,7 +42,7 @@ namespace ClassicAssist.Data.Autoloot
         {
             obj = value;
             OnPropertyChanged( propertyName );
-            CommandManager.InvalidateRequerySuggested();
+            //CommandManager.InvalidateRequerySuggested();
         }
     }
 }

@@ -93,12 +93,12 @@ namespace ClassicAssist.UI.ViewModels
     {
       add
       {
-        CommandManager.RequerySuggested += value;
+        //CommandManager.RequerySuggested += value;
         CanExecuteChangedInternal += value;
       }
       remove
       {
-        CommandManager.RequerySuggested -= value;
+        //CommandManager.RequerySuggested -= value;
         CanExecuteChangedInternal -= value;
       }
     }
@@ -135,8 +135,8 @@ namespace ClassicAssist.UI.ViewModels
 
     public event EventHandler CanExecuteChanged
     {
-      add => CommandManager.RequerySuggested += value;
-      remove => CommandManager.RequerySuggested -= value;
+      add { } // CommandManager.RequerySuggested += value;
+      remove { } // CommandManager.RequerySuggested -= value;
     }
 
     public bool CanExecute(object parameter)

@@ -65,7 +65,7 @@ namespace ClassicAssist.Data.Hotkeys
         }
 
         [JsonIgnore]
-        public ImageSource Image =>
+        public dynamic Image =>
             Equals( Hotkey, ShortcutKeys.Default )
                 ? Properties.Resources.red_circle.ToImageSource()
                 : Properties.Resources.green_circle.ToImageSource();

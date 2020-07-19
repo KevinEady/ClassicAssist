@@ -24,7 +24,7 @@ namespace ClassicAssist.Data.Chat
     public class ChatMessage
     {
         public string Channel { get; set; }
-        public SolidColorBrush Colour { get; set; }
+        public dynamic Colour { get; set; }
         public string Text { get; set; }
         public string Username { get; set; }
 

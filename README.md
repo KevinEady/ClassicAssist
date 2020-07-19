@@ -1,4 +1,4 @@
-﻿﻿# ClassicAssistAvalonia
+# ClassicAssistAvalonia
 
 WIP POC / Fork of [ClassicAssist](https://github.com/Reetus/ClassicAssist) using
 Avalonia instead of WPF.

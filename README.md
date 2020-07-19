@@ -1,51 +1,117 @@
-﻿﻿﻿﻿﻿﻿[![Build status](https://ci.appveyor.com/api/projects/status/8ky24q5mvc1h0xll/branch/master?svg=true)](https://ci.appveyor.com/project/Reetus/classicassist/branch/master)
+﻿﻿# ClassicAssistAvalonia
 
-# ClassicAssist
+WIP POC / Fork of [ClassicAssist](https://github.com/Reetus/ClassicAssist) using
+Avalonia instead of WPF.
 
-Assistant for [ClassicUO](https://github.com/andreakarasho/ClassicUO) with UOSteam-like interface and macro syntax.
+## Running
 
-![assist1](https://user-images.githubusercontent.com/6239195/73602827-d51b7e00-45b4-11ea-96c4-64bef454e36f.png)
+Update your ClassicUO `settings.json` to the plugin in the `Output` folder:
 
-ClassicAssist is under development but is in a useable state, features are being added constantly.
+```json
+{
+	"plugins" : [
+		"/Projects/ClassicAssistAvalonia/Output/net48/ClassicAssist.dll"
+	]
+}
+```
 
-## Installation
+### Mac OS X-Specific
 
-Add the full path to ClassicAssist.dll to the plugin section of the ClassicUO settings.json config file.
+ClassicUO must be started with custom `DYLD_LIBRARY_PATH` to add its native
+shared libraries. Avalonia also uses native libraries that are copied on build
+to `Output/osx`. This path must be added as well.
 
-Alternatively, use ClassicAssist.Launcher.exe and it will launch ClassicUO with the required path to the plugin.
+Furthermore, the Avalonia assemblies are placed in the `Output` folder, but are
+not automatically picked up by Mono. You must add the `Output` path to the
+`MONO_PATH` environmental variable for mono to pick up these assemblies.
 
-[Installation Video](https://www.youtube.com/watch?v=SQ5QhR1TS1U&feature=youtu.be)
+For example, if your current working directory is the `ClassicUO` folder, and
+`ClassicAssistAvalonia` is built in `../ClassicAssistAvalonia`:
 
-## Zone.Identifier
+```
+OUTPUT=../ClassicAssistAvalonia/Output/net48 MONO_PATH=$OUTPUT DYLD_LIBRARY_PATH=bin/Debug/osx:$OUTPUT/osx mono bin/Debug/ClassicUO.exe
+```
 
-If ClassicAssist fails to run or you receive an error message about loading from the network, follow the instructions here to unblock the files:
+## Known Issues
 
-[https://winaero.com/blog/how-to-unblock-files-downloaded-from-internet-in-windows-10/](https://winaero.com/blog/how-to-unblock-files-downloaded-from-internet-in-windows-10/)
+### Mac OS-X
 
-## Macros
+There seems to be some error with the native libraries where a segfault is
+thrown on program exit. You may see something like this when closing the
+ClassicUO client:
 
-Macros have similar function names as UOSteam but uses Python as the language, to learn the language syntax, refer to Python beginner guides on the internet such as [https://stackabuse.com/python-tutorial-for-absolute-beginners/](https://stackabuse.com/python-tutorial-for-absolute-beginners/)
 
+```
+xx:xx:xx |  Trace   | Exiting game...
+xx:xx:xx |  Trace   | Closing...
+=================================================================
+        Native Crash Reporting
+=================================================================
+Got a segv while executing native code. This usually indicates
+a fatal error in the mono runtime or one of the native libraries
+used by your application.
+=================================================================
 
-![assist2](https://user-images.githubusercontent.com/6239195/73602829-d8166e80-45b4-11ea-8132-61c29fce3862.png)
+=================================================================
+        Native stacktrace:
+=================================================================
+        0x1041a6ad9 - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : mono_dump_native_crash_info
+        0x10413efb5 - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : mono_handle_native_crash
+        0x1041a0c56 - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : altstack_handle_and_restore
+        0x7fff381478ac - /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib : glDeleteBuffers
+        0x153883c6f - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1537b7bbf - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1537d9106 - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1537d8fa2 - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1537a6695 - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1537ad9fc - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1538c16e3 - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1535fb1fb - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1535fae9c - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1535fb22e - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x1538c9ab0 - /Projects/ClassicAssistAvalonia/Output/net48/osx/libSkiaSharp.dylib : gr_backendrendertarget_get_gl_framebufferinfo
+        0x156e2f943 - Unknown
+        0x10c9e5ebc - Unknown
+        0x104327119 - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : mono_gc_run_finalize
+        0x10434601c - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : sgen_gc_invoke_finalizers
+        0x104329009 - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : finalizer_thread
+        0x1042d56ed - /Library/Frameworks/Mono.framework/Versions/Current/Commands/mono : start_wrapper
+        0x7fff6849b109 - /usr/lib/system/libsystem_pthread.dylib : _pthread_start
+        0x7fff68496b8b - /usr/lib/system/libsystem_pthread.dylib : thread_start
 
-## Compatibility
+=================================================================
+        Telemetry Dumper:
+=================================================================
+Pkilling 0x10cbd2dc0 from 0x70000a4db000
+Entering thread summarizer pause from 0x70000a4db000
+Finished thread summarizer pause from 0x70000a4db000.
+Failed to create breadcrumb file (null)/crash_hash_0x4cf2e5da7
 
-ClassicAssist uses [WPF](https://en.wikipedia.org/wiki/Windows_Presentation_Foundation) as the UI framework which is only compatible with Windows.
+Waiting for dumping threads to resume
 
-## Issues / Feature Requests
+=================================================================
+        External Debugger Dump:
+=================================================================
 
-If you encounter any issues or require a feature not currently added, please raise an issue on GitHub with as much information as possible.
+=================================================================
+        Basic Fault Address Reporting
+=================================================================
+Memory around native instruction pointer (0x7fff381478ac):0x7fff3814789c  89 e5 48 89 f2 89 fe 65 48 8b 04 25 f0 00 00 00  ..H....eH..%....
+0x7fff381478ac  48 8b 88 20 14 00 00 48 8b 38 5d ff e1 55 48 89  H.. ...H.8]..UH.
+0x7fff381478bc  e5 48 89 f2 89 fe 65 48 8b 04 25 f0 00 00 00 48  .H....eH..%....H
+0x7fff381478cc  8b 88 28 14 00 00 48 8b 38 5d ff e1 55 48 89 e5  ..(...H.8]..UH..
 
-## Documentation
-
-Full documentation is still a work-in-progress but documentation on Macro Commands can be found here... [Macro Commands](https://github.com/Reetus/ClassicAssist/wiki/Macro-Commands)
-
-## Translation
-
-If your native language isn't English and you'd like to contribute a translation into your language, send a pull request or open an issue.
-
-![assist3](https://user-images.githubusercontent.com/6239195/73602831-da78c880-45b4-11ea-82e4-fe71c3ca41c8.png)
+=================================================================
+        Managed Stacktrace:
+=================================================================
+          at <unknown> <0xffffffff>
+          at SkiaSharp.SkiaApi:sk_surface_unref <0x000a2>
+          at SkiaSharp.SKSurface:Dispose <0x0008a>
+          at SkiaSharp.SKNativeObject:Finalize <0x00039>
+          at System.Object:runtime_invoke_virtual_void__this__ <0x000ab>
+=================================================================
+[1]    20836 abort      OUTPUT=../ClassicAssistAvalonia/Output/net48 MONO_PATH=$OUTPUT = mono
+```
 
 ## License
 
@@ -61,11 +127,3 @@ If your native language isn't English and you'd like to contribute a translation
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-## Credits
-
-Icons made by [FreePik](https://www.flaticon.com/authors/freepik) from [FlatIcon](https://www.flaticon.com/)
-
-Icons made by [SmashIcons](https://www.flaticon.com/authors/smashicons) from [FlatIcon](https://www.flaticon.com/)
-
-

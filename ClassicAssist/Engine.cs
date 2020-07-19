@@ -14,6 +14,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Logging.Serilog;
+using Avalonia.ReactiveUI;
 using ClassicAssist.Data;
 using ClassicAssist.Data.Abilities;
 using ClassicAssist.Data.Commands;
@@ -62,7 +66,7 @@ namespace Assistant
         private static OnPacketSendRecv _sendToServer;
         private static OnGetPacketLength _getPacketLength;
         private static OnUpdatePlayerPosition _onPlayerPositionChanged;
-        private static MainWindow _window;
+        public static MainWindow MainWindow { get; private set; }
         private static Thread _mainThread;
         private static OnClientClose _onClientClosing;
         private static readonly PacketFilter _incomingPacketFilter = new PacketFilter();
@@ -85,6 +89,7 @@ namespace Assistant
         private static DateTime _nextPacketSendTime;
         private static unsafe PluginHeader* _plugin;
         public static int LastSpellID;
+
 
         public static Assembly ClassicAssembly { get; set; }
 
@@ -138,18 +143,29 @@ namespace Assistant
 
             InitializePlugin( plugin );
 
-            _mainThread = new Thread( () =>
-            {
-                _window = new MainWindow();
-                _window.Show();
-                Dispatcher.Run();
-            } ) { IsBackground = true };
-
-            _mainThread.SetApartmentState( ApartmentState.STA );
-            _mainThread.Start();
+            LoadUI();
         }
 
-        internal static unsafe void InitializePlugin( PluginHeader* plugin )
+        internal static void LoadUI()
+        {
+            var inst = AppBuilder.Configure<ClassicAssist.UI.App>()
+                  .UsePlatformDetect()
+                  .LogToDebug()
+                  .UseReactiveUI()
+                  .SetupWithoutStarting()
+                  .Instance;
+            var cts = new CancellationTokenSource();
+            MainWindow = new MainWindow();
+            MainWindow.Show();
+            MainWindow.Opened += (object sender, EventArgs e) => {
+              Console.WriteLine("MainWindow opened!");
+            };
+            cts.CancelAfter(10);
+            inst.Run(cts.Token);
+            Console.WriteLine("inst.Run complete!");
+        }
+
+    internal static unsafe void InitializePlugin( PluginHeader* plugin )
         {
             _onConnected = OnConnected;
             _onDisconnected = OnDisconnected;

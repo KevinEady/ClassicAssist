@@ -3,7 +3,7 @@ using ClassicAssist.UI.Misc;
 
 namespace ClassicAssist.Data.Autoloot
 {
-    [TypeConverter( typeof( EnumDescriptionTypeConverter ) )]
+    //[TypeConverter( typeof( EnumDescriptionTypeConverter ) )]
     public enum AutolootOperator
     {
         [Description( "==" )]

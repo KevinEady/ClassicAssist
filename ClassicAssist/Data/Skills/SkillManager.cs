@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Avalonia.Collections;
 using ClassicAssist.Annotations;
 using ClassicAssist.UI.Misc;
 
@@ -9,13 +10,13 @@ namespace ClassicAssist.Data.Skills
     {
         private static readonly object _lock = new object();
         private static SkillManager _instance;
-        private ObservableCollectionEx<SkillEntry> _items = new ObservableCollectionEx<SkillEntry>();
+        private AvaloniaList<SkillEntry> _items = new AvaloniaList<SkillEntry>();
 
         private SkillManager()
         {
         }
 
-        public ObservableCollectionEx<SkillEntry> Items
+        public AvaloniaList<SkillEntry> Items
         {
             get => _items;
             set => SetProperty( ref _items, value );

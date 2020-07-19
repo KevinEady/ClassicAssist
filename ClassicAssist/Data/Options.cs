@@ -340,7 +340,7 @@ namespace ClassicAssist.Data
 
         public static void Save( Options options )
         {
-            BaseViewModel[] instances = BaseViewModel.Instances;
+           BaseViewModel[] instances = BaseViewModel.Instances;
 
             JObject obj = new JObject { { "Name", options.Name } };
 

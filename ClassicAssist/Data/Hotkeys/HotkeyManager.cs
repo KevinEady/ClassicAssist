@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Assistant;
+using Avalonia.Collections;
 using ClassicAssist.Annotations;
 using ClassicAssist.Data.Hotkeys.Commands;
 using ClassicAssist.Data.Macros.Commands;
@@ -27,7 +28,7 @@ namespace ClassicAssist.Data.Hotkeys
         private readonly List<Key> _modifiers = new List<Key>();
         private bool _enabled = true;
 
-        private ObservableCollectionEx<HotkeyCommand> _items = new ObservableCollectionEx<HotkeyCommand>();
+        private AvaloniaList<HotkeyCommand> _items = new AvaloniaList<HotkeyCommand>();
 
         private HotkeyManager()
         {
@@ -41,7 +42,7 @@ namespace ClassicAssist.Data.Hotkeys
             set => SetProperty( ref _enabled, value );
         }
 
-        public ObservableCollectionEx<HotkeyCommand> Items
+        public AvaloniaList<HotkeyCommand> Items
         {
             get => _items;
             set => SetProperty( ref _items, value );

@@ -1,4 +1,5 @@
 ﻿using System;
+using Avalonia.Collections;
 using ClassicAssist.Data.Hotkeys;
 using ClassicAssist.UI.Misc;
 
@@ -7,7 +8,7 @@ namespace ClassicAssist.Data.Organizer
     public class OrganizerEntry : HotkeyEntry
     {
         private bool _complete;
-        private ObservableCollectionEx<OrganizerItem> _items = new ObservableCollectionEx<OrganizerItem>();
+        private AvaloniaList<OrganizerItem> _items = new AvaloniaList<OrganizerItem>();
         private bool _stack = true;
 
         public Func<bool> IsRunning;
@@ -20,7 +21,7 @@ namespace ClassicAssist.Data.Organizer
 
         public int DestinationContainer { get; set; }
 
-        public ObservableCollectionEx<OrganizerItem> Items
+        public AvaloniaList<OrganizerItem> Items
         {
             get => _items;
             set => SetProperty( ref _items, value );

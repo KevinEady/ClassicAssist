@@ -32,7 +32,7 @@ namespace ClassicAssist.Data.Hotkeys.Commands
             Thread t = new Thread( () =>
             {
                 _window = new GIFRecorderWindow();
-                _window.ShowDialog();
+                _window.ShowDialog(Assistant.Engine.MainWindow);
             } );
 
             t.SetApartmentState( ApartmentState.STA );

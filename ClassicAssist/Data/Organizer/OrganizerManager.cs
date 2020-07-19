@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Assistant;
+using Avalonia.Collections;
 using ClassicAssist.Annotations;
 using ClassicAssist.Resources;
 using ClassicAssist.UI.Misc;
@@ -20,7 +21,7 @@ namespace ClassicAssist.Data.Organizer
     {
         private static readonly object _lock = new object();
         private static OrganizerManager _instance;
-        private ObservableCollectionEx<OrganizerEntry> _items = new ObservableCollectionEx<OrganizerEntry>();
+        private AvaloniaList<OrganizerEntry> _items = new AvaloniaList<OrganizerEntry>();
 
         private OrganizerManager()
         {
@@ -29,7 +30,7 @@ namespace ClassicAssist.Data.Organizer
 
         public bool IsOrganizing { get; set; }
 
-        public ObservableCollectionEx<OrganizerEntry> Items
+        public AvaloniaList<OrganizerEntry> Items
         {
             get => _items;
             set => SetProperty( ref _items, value );

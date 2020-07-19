@@ -23,65 +23,65 @@ using ClassicAssist.UO.Gumps;
 
 namespace ClassicAssist.UI.ViewModels
 {
-    public class RepositionableGumpViewModel : BaseViewModel
+  public class RepositionableGumpViewModel : BaseViewModel
+  {
+    private readonly RepositionableGump _gump;
+    private int _horizontalMax;
+    private int _verticalMax;
+    private int _x;
+    private int _y;
+
+    public RepositionableGumpViewModel()
     {
-        private readonly RepositionableGump _gump;
-        private int _horizontalMax;
-        private int _verticalMax;
-        private int _x;
-        private int _y;
-
-        public RepositionableGumpViewModel()
-        {
-        }
-
-        public RepositionableGumpViewModel( RepositionableGump gump, int initialX, int initialY )
-        {
-            _gump = gump;
-            X = initialX;
-            Y = initialY;
-            HorizontalMax = 3840;
-            VerticalMax = 2160;
-
-            if ( !NativeMethods.GetWindowRect( Engine.WindowHandle, out NativeMethods.RECT rect ) )
-            {
-                return;
-            }
-
-            HorizontalMax = rect.Right - rect.Left;
-            VerticalMax = rect.Bottom - rect.Top;
-        }
-
-        public int HorizontalMax
-        {
-            get => _horizontalMax;
-            set => SetProperty( ref _horizontalMax, value );
-        }
-
-        public int VerticalMax
-        {
-            get => _verticalMax;
-            set => SetProperty( ref _verticalMax, value );
-        }
-
-        public int X
-        {
-            get => _x;
-            set
-            {
-                SetProperty( ref _x, value );
-                _gump?.SetPosition( _x, _y );
-            }
-        }
-
-        public int Y
-        {
-            get => _y;
-            set
-            {
-                SetProperty( ref _y, value );
-                _gump?.SetPosition( _x, _y );
-            }
-        }
     }
+
+    public RepositionableGumpViewModel(RepositionableGump gump, int initialX, int initialY)
+    {
+      _gump = gump;
+      X = initialX;
+      Y = initialY;
+      HorizontalMax = 3840;
+      VerticalMax = 2160;
+
+      if (!NativeMethods.GetWindowRect(Engine.WindowHandle, out NativeMethods.RECT rect))
+      {
+        return;
+      }
+
+      HorizontalMax = rect.Right - rect.Left;
+      VerticalMax = rect.Bottom - rect.Top;
+    }
+
+    public int HorizontalMax
+    {
+      get => _horizontalMax;
+      set => SetProperty(ref _horizontalMax, value);
+    }
+
+    public int VerticalMax
+    {
+      get => _verticalMax;
+      set => SetProperty(ref _verticalMax, value);
+    }
+
+    public int X
+    {
+      get => _x;
+      set
+      {
+        SetProperty(ref _x, value);
+        _gump?.SetPosition(_x, _y);
+      }
+    }
+
+    public int Y
+    {
+      get => _y;
+      set
+      {
+        SetProperty(ref _y, value);
+        _gump?.SetPosition(_x, _y);
+      }
+    }
+  }
 }

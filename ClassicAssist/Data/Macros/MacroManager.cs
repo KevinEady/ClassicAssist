@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using Assistant;
+using Avalonia.Collections;
 using ClassicAssist.UI.Misc;
 using ClassicAssist.UO.Gumps;
 using ClassicAssist.UO.Network.PacketFilter;
@@ -39,7 +40,7 @@ namespace ClassicAssist.Data.Macros
         public MacroEntry CurrentMacro { get; set; }
         public Action<string> InsertDocument { get; set; }
         public Func<bool> IsRecording { get; set; }
-        public ObservableCollectionEx<MacroEntry> Items { get; set; }
+        public AvaloniaList<MacroEntry> Items { get; set; }
         public Action<string, string> NewMacro { get; set; }
         public static bool QuietMode { get; set; }
         public bool Replay { get; set; }

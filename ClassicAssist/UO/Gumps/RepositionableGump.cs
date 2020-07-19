@@ -62,9 +62,9 @@ namespace ClassicAssist.UO.Gumps
                         SetPosition( GumpX, GumpY );
                         RepositionableGumpViewModel vm = new RepositionableGumpViewModel( this, GumpX, GumpY );
                         RepositionableGumpWindow window = new RepositionableGumpWindow { DataContext = vm };
-                        WindowInteropHelper helper = new WindowInteropHelper( window ) { Owner = Engine.WindowHandle };
+                        //WindowInteropHelper helper = new WindowInteropHelper( window ) { Owner = Engine.WindowHandle };
                         window.ShowInTaskbar = false;
-                        window.ShowDialog();
+                        window.ShowDialog(Engine.MainWindow);
                     } ) { IsBackground = true };
 
                     t.SetApartmentState( ApartmentState.STA );

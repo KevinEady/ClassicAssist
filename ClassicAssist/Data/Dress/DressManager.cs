@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Assistant;
+using Avalonia.Collections;
 using ClassicAssist.Annotations;
 using ClassicAssist.Misc;
 using ClassicAssist.UI.Misc;
@@ -26,7 +27,7 @@ namespace ClassicAssist.Data.Dress
             Layer.Pants, Layer.Ring, Layer.Shirt, Layer.Shoes, Layer.Talisman, Layer.TwoHanded, Layer.Waist
         };
 
-        private ObservableCollectionEx<DressAgentEntry> _items = new ObservableCollectionEx<DressAgentEntry>();
+        private AvaloniaList<DressAgentEntry> _items = new AvaloniaList<DressAgentEntry>();
         private DressAgentEntry _temporaryDress;
         private bool _useUo3DPackets;
 
@@ -37,7 +38,7 @@ namespace ClassicAssist.Data.Dress
 
         public bool IsDressing { get; set; }
 
-        public ObservableCollectionEx<DressAgentEntry> Items
+        public AvaloniaList<DressAgentEntry> Items
         {
             get => _items;
             set => SetProperty( ref _items, value );

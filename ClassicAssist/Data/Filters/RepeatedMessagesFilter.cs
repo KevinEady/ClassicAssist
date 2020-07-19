@@ -18,7 +18,7 @@ namespace ClassicAssist.Data.Filters
         public void Configure()
         {
             RepeatedMessagesFilterConfigureWindow window = new RepeatedMessagesFilterConfigureWindow( FilterOptions );
-            window.ShowDialog();
+            window.ShowDialog(Assistant.Engine.MainWindow);
         }
 
         public void Deserialize( JToken token )

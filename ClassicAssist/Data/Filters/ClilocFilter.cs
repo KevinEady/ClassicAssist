@@ -2,7 +2,7 @@
 using System.Linq;
 using Assistant;
 using ClassicAssist.Resources;
-using ClassicAssist.UI.Views.Filters;
+//using ClassicAssist.UI.Views.Filters;
 using ClassicAssist.UO.Data;
 using ClassicAssist.UO.Network.Packets;
 using Newtonsoft.Json.Linq;
@@ -18,10 +18,10 @@ namespace ClassicAssist.Data.Filters
 
         public void Configure()
         {
-            ClilocFilterConfigureWindow window =
-                new ClilocFilterConfigureWindow { Topmost = Options.CurrentOptions.AlwaysOnTop };
+            //ClilocFilterConfigureWindow window =
+            //    new ClilocFilterConfigureWindow { Topmost = Options.CurrentOptions.AlwaysOnTop };
 
-            window.ShowDialog();
+            //window.ShowDialog();
         }
 
         public void Deserialize( JToken token )

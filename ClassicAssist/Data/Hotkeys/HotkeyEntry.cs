@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Media;
+using Avalonia.Collections;
 using ClassicAssist.Annotations;
 using ClassicAssist.Misc;
 using ClassicAssist.UI.Misc;
@@ -15,7 +16,7 @@ namespace ClassicAssist.Data.Hotkeys
 
         private readonly object _childrenLock = new object();
 
-        private ObservableCollectionEx<HotkeyEntry> _children = new ObservableCollectionEx<HotkeyEntry>();
+        private AvaloniaList<HotkeyEntry> _children = new AvaloniaList<HotkeyEntry>();
 
         private ShortcutKeys _hotkey = new ShortcutKeys();
         private bool _isCategory;
@@ -27,7 +28,7 @@ namespace ClassicAssist.Data.Hotkeys
         public Action<HotkeyEntry> Action { get; set; }
 
         [JsonIgnore]
-        public ObservableCollectionEx<HotkeyEntry> Children
+        public AvaloniaList<HotkeyEntry> Children
         {
             get
             {

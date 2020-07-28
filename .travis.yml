@@ -1,0 +1,9 @@
+install: 
+  - "nuget restore ClassicAssist.sln"
+language: csharp
+mono: 
+  - latest
+os: osx
+script: 
+  - "msbuild /p:Configuration=Debug ClassicAssist.Avalonia"
+solution: ClassicAssist.sln

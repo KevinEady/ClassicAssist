@@ -3,6 +3,7 @@ install:
 language: csharp
 mono: 
   - latest
+dotnet: 3.1.302
 os: osx
 script: 
   - "msbuild /p:Configuration=Debug ClassicAssist.Avalonia"

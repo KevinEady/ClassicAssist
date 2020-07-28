@@ -2,16 +2,29 @@ name: Build Mac Avalonia
 
 on:
   push:
-    branches: [ avalonia ]
+    branches: [avalonia]
   pull_request:
-    branches: [ avalonia ]
+    branches: [avalonia]
 
 jobs:
-  build:
+  # build:
+  #   runs-on: macos-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: Nuget Restore
+  #       run: msbuild ClassicAssist.Avalonia /p:Configuration=Debug -t:restore
+  #     - name: Build with msbuild
+  #       run: msbuild ClassicAssist.Avalonia /p:Configuration=Debug
+  test:
     runs-on: macos-latest
+    # needs: build
     steps:
-    - uses: actions/checkout@v2
-    - name: Nuget Restore
-      run: msbuild ClassicAssist.Avalonia /p:Configuration=Debug -t:restore   
-    - name: Build with msbuild
-      run: msbuild ClassicAssist.Avalonia /p:Configuration=Debug
+      - run: |
+          curl -v --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' "https://api.github.com/repos/andreakarasho/ClassicUO/releases/latest" | jq .
+          export CLASSICUO_URL=$(curl --silent --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' "https://api.github.com/repos/andreakarasho/ClassicUO/releases/latest" | jq -r '.assets[0].browser_download_url')
+          echo "ClassicUO Download URL: $CLASSICUO_URL"
+          curl -L $CLASSICUO_URL -o ClassicUO.zip
+          unzip ClassicUO.zip -d ClassicUO
+          rm ClassicUO.zip
+          find .
+        shell: bash

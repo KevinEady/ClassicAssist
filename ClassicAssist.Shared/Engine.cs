@@ -735,8 +735,11 @@ namespace ClassicAssist.Shared
 
         public static ThreadQueue<Packet> OutgoingQueue { get; set; }
 
-        private static bool OnPacketReceive( ref byte[] data, ref int length )
+        private static bool OnPacketReceive( IntPtr ptr, ref int length )
         {
+            byte[] data = new byte[length];
+            Marshal.Copy( ptr, data, 0, length );
+
             if (_incomingPacketFilter.MatchFilterAll( data, out PacketFilterInfo[] pfis ) > 0)
             {
                 foreach (PacketFilterInfo pfi in pfis)

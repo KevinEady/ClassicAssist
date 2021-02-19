@@ -127,6 +127,16 @@ namespace ClassicAssist.Data
             Assemblies = json?["Assemblies"]?.ToObject<string[]>() ?? new string[0];
             SessionId = Guid.NewGuid().ToString();
 
+            if ( WindowWidth <= 0.0 )
+            {
+                WindowWidth = 625;
+            }
+
+            if ( WindowHeight <= 0.0 )
+            {
+                WindowHeight = 500;
+            }
+
             if ( json?["Profiles"] != null )
             {
                 foreach ( JToken token in json["Profiles"] )

@@ -65,6 +65,8 @@ namespace Assistant
 
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
 
+            NativeLibrary.SetDllImportResolver(typeof(ClassicAssist.Data.Hotkeys.KeyState).Assembly, ImportResolver);
+
             Initialize( plugin );
 
             // The Avalonia APIs must be used in a separate method _after_ the
@@ -72,6 +74,23 @@ namespace Assistant
             // run-time type initializer for Engine.Install will fail to load 
             // the Avalonia.Controls.dll that are in the plugin's output folder.
             LoadUI();
+        }
+
+        private static IntPtr ImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath)
+        {
+            IntPtr libHandle = IntPtr.Zero;
+            if ( libraryName == "SDL2.dll" )
+            {
+                var fileName = SEngine.GetPlatformType() switch 
+                {
+                    PlatformType.MacOSX => "osx/libSDL2-2.0.0.dylib",
+                    PlatformType.Unix => "lib64/libSDL2-2.0.so.0",
+                    _ => libraryName,
+                };
+                Console.WriteLine($"Using SDL library {fileName}");
+                NativeLibrary.TryLoad(fileName, assembly, DllImportSearchPath.System32, out libHandle);
+            }
+            return libHandle;
         }
 
         private static void LoadUI()

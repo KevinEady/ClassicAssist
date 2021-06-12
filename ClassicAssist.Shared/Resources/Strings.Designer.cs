@@ -2065,6 +2065,15 @@ namespace ClassicAssist.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximum distance exceeded..
+        /// </summary>
+        public static string Maximum_distance_exceeded_ {
+            get {
+                return ResourceManager.GetString("Maximum distance exceeded.", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Menu.
         /// </summary>
         public static string Menu {
@@ -3519,6 +3528,15 @@ namespace ClassicAssist.Shared.Resources {
         public static string Timers {
             get {
                 return ResourceManager.GetString("Timers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle Dress Type.
+        /// </summary>
+        public static string Toggle_Dress_Type {
+            get {
+                return ResourceManager.GetString("Toggle Dress Type", resourceCulture);
             }
         }
         

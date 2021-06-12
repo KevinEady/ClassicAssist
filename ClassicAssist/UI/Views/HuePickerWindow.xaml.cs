@@ -5,8 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 using ClassicAssist.Annotations;
-using ClassicAssist.UI.ViewModels;
 using ClassicAssist.UO.Data;
+using ReactiveUI;
 
 namespace ClassicAssist.UI.Views
 {
@@ -56,7 +56,9 @@ namespace ClassicAssist.UI.Views
             set => SetProperty( ref _items, value );
         }
 
-        public ICommand OKCommand => _okCommand ?? ( _okCommand = new RelayCommand( OK, o => SelectedItem != null ) );
+        public ICommand OKCommand =>
+            _okCommand ?? ( _okCommand = ReactiveCommand.Create<HuePickerEntry>( OK,
+                this.WhenAnyValue( e => e.SelectedItem, selector: e => e != null ) ) );
 
         public int SelectedHue
         {

@@ -15,6 +15,7 @@
         Title="{Binding Title}" Topmost="{Binding AlwaysOnTop}">
   <i:Interaction.Behaviors>
     <misc:WindowInitializedBehaviour/>
+    <misc:WindowResizeBehaviour/>
   </i:Interaction.Behaviors>
   <Window.DataContext>
     <viewModels:MainWindowViewModel />
@@ -35,6 +36,9 @@
       </TabItem>
       <TabItem Header="{x:Static resources:Strings.Skills}">
         <views:SkillsTabControl/>
+      </TabItem>
+      <TabItem Header="{x:Static resources:Strings.Agents}">
+        <views:AgentsTabControl/>
       </TabItem>
       <TabItem Header="{x:Static resources:Strings.About}">
         <views:AboutControl/>
